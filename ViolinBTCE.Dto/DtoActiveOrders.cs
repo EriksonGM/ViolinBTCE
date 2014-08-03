@@ -22,6 +22,11 @@ namespace ViolinBtce.Dto
 
             return castedObject.List.All(kvp => List.ContainsKey(kvp.Key) && List.ContainsValue(kvp.Value));
         }
+
+        public override int GetHashCode()
+        {
+            return 17 + 31 * List.GetHashCode();
+        }
 	}
 
     // Created only to allow testing class DtoActiveOrders completely using TestCases

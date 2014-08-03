@@ -19,5 +19,10 @@ namespace ViolinBtce.Dto
 	               Trade == castedObject.Trade &&
 	               Withdraw == castedObject.Withdraw;
 	    }
+
+        public override int GetHashCode()
+        {
+            return 17 + 31 * Info.GetHashCode() + 31 * Trade.GetHashCode() + 31 * Withdraw.GetHashCode();
+        }
 	}
 }

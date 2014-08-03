@@ -17,5 +17,10 @@ namespace ViolinBtce.Dto
             return  Price == castedObject.Price &&
                     Amount == castedObject.Amount;
         }
+
+        public override int GetHashCode()
+        {
+            return 17 + 31 * Price.GetHashCode() + 31 * Amount.GetHashCode();
+        }
     }
 }

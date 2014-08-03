@@ -26,5 +26,11 @@ namespace ViolinBtce.Dto
                     TimestampCreated    == castedObject.TimestampCreated &&
                     Status              == castedObject.Status;
         }
+
+        public override int GetHashCode()
+        {
+            return 17 + 31 * Pair.GetHashCode() + 31 * Type.GetHashCode() + 31 * Amount.GetHashCode() +
+                        31 * Rate.GetHashCode() + 31 * TimestampCreated.GetHashCode() + 31 * Status.GetHashCode();
+        }
     }
 }

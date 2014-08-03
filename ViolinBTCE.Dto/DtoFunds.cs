@@ -37,6 +37,13 @@ namespace ViolinBtce.Dto
 	            return false;
 	        }
 	    }
+
+        public override int GetHashCode()
+        {
+            return 17 + 31 * Btc.GetHashCode() + 31 * Ltc.GetHashCode() + 31 * Nmc.GetHashCode() +
+                        31 * Nvc.GetHashCode() + 31 * Trc.GetHashCode() + 31 * Ppc.GetHashCode() +
+                        31 * Ftc.GetHashCode() + 31 * Usd.GetHashCode() + 31 * Eur.GetHashCode();
+        }
 	};
 
 }
