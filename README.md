@@ -25,7 +25,7 @@ I'll create an API Reference page as soon as it's finished and tested.
 
 ## Tests
 
-Tests status: <img src"https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/>
+Tests status: <img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/>
 
 To run the tests, you can use NUnit GUI, for example. I use resharper to run it and dotcover to detect what is being covered or not.
 
