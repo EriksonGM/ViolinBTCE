@@ -9,7 +9,7 @@ This project is a fork of https://github.com/DmT021/BtceApi . It has been cleane
 
 ## Code Example
 
-I am still writing unit tests and for the lower level operation and the the API is still not usable. I'll be adding the sintaxes of use asap.
+I am writing unit tests for the top level operations and the the API is still not usable. I'll be adding the sintaxes of use asap.
 
 ## Motivation
 
@@ -25,7 +25,7 @@ I'll create an API Reference page as soon as it's finished and tested.
 
 ## Tests
 
-Tests status: <img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/>
+Tests status (CI on AppVeyor): <img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/>
 
 To run the tests, you can use NUnit GUI, for example. I use resharper to run it and dotcover to detect what is being covered or not.
 
