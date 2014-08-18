@@ -39,7 +39,7 @@ namespace ViolinBtce.Shared.Test
 
 
         [TestCase("key", "secret", "https://btc-e.com/tapi")]
-        [TestCase("key", "secret", "http://www.invalid.test")]
+        [TestCase("key", "secret", "http://www.invalid.test",   ExpectedException = typeof(WebException))]
 
         [TestCase(null,  null,      "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
         [TestCase("",    "",        "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
