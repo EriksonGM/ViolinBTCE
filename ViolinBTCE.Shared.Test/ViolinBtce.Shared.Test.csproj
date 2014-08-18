@@ -59,13 +59,13 @@
     <Compile Include="WebApiTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ViolinBtce.Dto\ViolinBtce.Dto.csproj">
+    <ProjectReference Include="..\ViolinBTCE.Dto\ViolinBTCE.Dto.csproj">
       <Project>{C602B460-CC32-44F0-A24E-AF6B16DDCBE7}</Project>
-      <Name>ViolinBtce.Dto</Name>
+      <Name>ViolinBTCE.Dto</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViolinBtce.Shared\ViolinBtce.Shared.csproj">
+    <ProjectReference Include="..\ViolinBTCE.Shared\ViolinBTCE.Shared.csproj">
       <Project>{07E96ABD-E848-4D58-A63F-5FC1C9399870}</Project>
-      <Name>ViolinBtce.Shared</Name>
+      <Name>ViolinBTCE.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE", "ViolinBTCE\ViolinBTCE.csproj", "{329F9AEC-1562-4E9E-93D2-614CBA42EB6E}"
 EndProject
@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.Dto", "ViolinBTC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.Shared", "ViolinBTCE.Shared\ViolinBTCE.Shared.csproj", "{07E96ABD-E848-4D58-A63F-5FC1C9399870}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBtce.Dto.Test", "ViolinBTCE.Dto.Test\ViolinBtce.Dto.Test.csproj", "{855870B4-6150-4A9D-A0F6-C4DC0362B079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.Dto.Test", "ViolinBTCE.Dto.Test\ViolinBTCE.Dto.Test.csproj", "{855870B4-6150-4A9D-A0F6-C4DC0362B079}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBtce.Shared.Test", "ViolinBTCE.Shared.Test\ViolinBtce.Shared.Test.csproj", "{7DFCB876-87BD-4B97-B0F3-A9BA0B453DB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.Shared.Test", "ViolinBTCE.Shared.Test\ViolinBTCE.Shared.Test.csproj", "{7DFCB876-87BD-4B97-B0F3-A9BA0B453DB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
