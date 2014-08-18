@@ -1,6 +1,6 @@
 ViolinBTCE
 ==========
-
+<p align="right"><img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/></p>
 ## Synopsis
 
 This project aims to offer an API which is easy to use and ensure behavior by testing all of the code. 
