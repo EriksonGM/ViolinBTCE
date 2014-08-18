@@ -6,7 +6,7 @@ using ViolinBtce.Dto.Helpers;
 
 namespace ViolinBTCE
 {
-    public class Operations
+    internal class Operations
     {
         protected internal static Dictionary<string, string> GetInfo()
         {
