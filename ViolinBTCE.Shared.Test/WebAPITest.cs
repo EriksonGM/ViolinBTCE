@@ -14,7 +14,6 @@ namespace ViolinBtce.Shared.Test
         [TestCase(true, true)]
         [TestCase(true, false, ExpectedException = typeof(WebException))]
         [TestCase(false, false, ExpectedException = typeof(WebException))]
-
         public void Query(bool urlIsValid, bool urlExists)
         {
             // Pre-requirements
