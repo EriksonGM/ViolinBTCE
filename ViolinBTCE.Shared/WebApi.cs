@@ -10,7 +10,7 @@ using ViolinBtce.Dto.Helpers;
 
 namespace ViolinBtce.Shared
 {
-    public class WebApi : IWebApi
+    public class WebApi
     {
         private readonly string _key;
         private readonly HMACSHA512 _hashMaker;
@@ -18,75 +18,141 @@ namespace ViolinBtce.Shared
 
         public WebApi(string key, string secret)
         {
+            if(string.IsNullOrEmpty(key))
+                throw new ArgumentNullException("key","The key must be passed in the constructor of a new instance of WebApi.");
+            if(string.IsNullOrEmpty(secret))
+                throw new ArgumentNullException("secret", "The secret must be passed in the constructor of a new instance of WebApi.");
+
             _key = key;
             _hashMaker = new HMACSHA512(Encoding.ASCII.GetBytes(secret));
             _nonce = UnixTimeHelper.Now;
         }
 
+        #region Query
         public static string Query(string url)
         {
-            var request = WebRequest.Create(url);
-            request.Proxy = WebRequest.DefaultWebProxy;
-            request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            if (request == null)
-                throw new Exception("Non HTTP WebRequest");
-            return new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
+            if (!ValidateURL(url)) throw new WebException("Non HTTP WebRequest");
+            
+            var httpInformation = RequestHttpInformation(url);
+            
+            return httpInformation;
         }
 
-        public string GetJsonStringFromQuery(Dictionary<string, string> operations)
+        private static string GetResponse(WebRequest webRequest)
         {
+            try
+            {
+                Stream responseStream = webRequest.GetResponse().GetResponseStream();
+                string response = new StreamReader(responseStream).ReadToEnd();
+                return response;
+            }
+            catch (Exception)
+            {
+                throw new WebException("It was not possible to read the stream content.");
+            }
+        }
+
+        #region Private methods
+            private static WebRequest CreateWebRequest(string url)
+            {
+                var request = WebRequest.Create(url);
+                request.Proxy = WebRequest.DefaultWebProxy;
+                request.Proxy.Credentials = CredentialCache.DefaultCredentials;
+                return request;
+            }
+
+            private static bool ValidateURL(string url)
+            {
+                Uri uriResult;
+                bool b = Uri.TryCreate(url, UriKind.Absolute, out uriResult) && uriResult.Scheme == Uri.UriSchemeHttp;
+                return b;
+            }
+            #endregion
+        #endregion
+
+        #region GetAnswerAsJsonString
+        public string GetAnswerAsJsonString(Dictionary<string, string> operations, string apiUri)
+        {
+            if (string.IsNullOrEmpty(apiUri))
+                throw new HttpException("Uri is empty");
+
             operations.Add("nonce", GetNonce().ToString());
 
             var dataStr = BuildPostData(operations);
             var data = Encoding.ASCII.GetBytes(dataStr);
+            
+            //TODO check method and probably use it in a specialist class.
+            var request = ConfigureRequest(data, new Uri(apiUri));
+            
+            doRequisition(request, data);
 
-            var request = WebRequest.Create(new Uri("https://btc-e.com/tapi")) as HttpWebRequest;
-            if (request == null)
-                throw new Exception("Non HTTP WebRequest");
-
-            request.Method = "POST";
-            request.Timeout = 15000;
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = data.Length;
-
-            request.Headers.Add("Key", _key);
-            request.Headers.Add("Sign", ByteArrayToString(_hashMaker.ComputeHash(data)).ToLower());
-            var reqStream = request.GetRequestStream();
-            reqStream.Write(data, 0, data.Length);
-            reqStream.Close();
-            return new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
+            var responseStream = request.GetResponse().GetResponseStream();
+            
+            var jsonString = new StreamReader(responseStream).ReadToEnd();
+            
+            return jsonString;
         }
 
-        public string RequestHttpInformation(string url)
+        #region Private methods
+            private static string BuildPostData(Dictionary<string, string> operations)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var item in operations)
+                {
+                    stringBuilder.AppendFormat("{0}={1}", item.Key, HttpUtility.UrlEncode(item.Value));
+                    stringBuilder.Append("&");
+                }
+                if (stringBuilder.Length > 0) stringBuilder.Remove(stringBuilder.Length - 1, 1);
+                return stringBuilder.ToString();
+            }
+
+            private HttpWebRequest ConfigureRequest(byte[] data, Uri uri)
+            {
+                HttpWebRequest request = WebRequest.Create(uri) as HttpWebRequest;
+
+                if (request == null)
+                    throw new HttpException("Non HTTP WebRequest");
+
+                request.Method = "POST";
+                request.Timeout = 15000;
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+
+                request.Headers.Add("Key", _key);
+                request.Headers.Add("Sign", ByteArrayToString(_hashMaker.ComputeHash(data)).ToLower());
+                return request;
+            }
+
+            private static void doRequisition(HttpWebRequest request, byte[] data)
+            {
+                var reqStream = request.GetRequestStream();
+                reqStream.Write(data, 0, data.Length);
+                reqStream.Close();
+            }
+            #endregion
+        #endregion
+
+        public static string RequestHttpInformation(string url)
         {
-            var request = WebRequest.Create(url);
-            request.Proxy = WebRequest.DefaultWebProxy;
-            request.Proxy.Credentials = CredentialCache.DefaultCredentials;
-            if (request == null)
-                throw new Exception("Non HTTP WebRequest");
-            return new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
+            var webRequest = CreateWebRequest(url);
+
+            return GetResponse(webRequest);
         }
 
-        public T Deserialize<T>(string jsonString)
-        {
-            var jObject = JObject.Parse(jsonString);
-
-            int success = (int) jObject["success"].ToObject(typeof (int));
-
-            if (success != 1) throw new OperationCanceledException(jObject["error"].ToString());
-
-            var deserializedObject = jObject["return"].ToObject<T>();
-            return deserializedObject;
-        }
-
-        public T DeserializeURLInfo<T>(string jsonString, string specialName = null)
+        public static T Deserialize<T>(string jsonString, string specialName = null)
         {
             var jObject = JObject.Parse(jsonString);
 
             T deserializedObject;
-            
-            if(specialName == null)
-                deserializedObject = (T) jObject[typeof(T).Name.ToLowerInvariant()].ToObject(typeof(T));
+
+            if (specialName == null)
+            {
+                int success = (int) jObject["success"].ToObject(typeof (int));
+
+                if (success != 1) throw new OperationCanceledException(jObject["error"].ToString());
+
+                deserializedObject = jObject["return"].ToObject<T>();
+            }
             else
                 deserializedObject = (T)jObject[specialName].ToObject(typeof(T));
 
@@ -98,17 +164,6 @@ namespace ViolinBtce.Shared
             return _nonce++;
         }
 
-        private static string BuildPostData(Dictionary<string, string> d)
-        {
-            StringBuilder s = new StringBuilder();
-            foreach (var item in d)
-            {
-                s.AppendFormat("{0}={1}", item.Key, HttpUtility.UrlEncode(item.Value));
-                s.Append("&");
-            }
-            if (s.Length > 0) s.Remove(s.Length - 1, 1);
-            return s.ToString();
-        }
 
         private static string ByteArrayToString(byte[] ba)
         {

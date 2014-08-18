@@ -53,9 +53,9 @@ namespace ViolinBTCE
         {
             string tickerString = string.Format("https://btc-e.com/api/2/{0}/ticker", ConvertionHelper.ToString(pair));
             
-            string jsonString = _webApi.RequestHttpInformation(tickerString );
+            string jsonString = WebApi.RequestHttpInformation(tickerString );
 
-            DtoTicker ticker = _webApi.DeserializeURLInfo<DtoTicker>(jsonString);
+            DtoTicker ticker = WebApi.Deserialize<DtoTicker>(jsonString);
             
             return ticker;
         }
@@ -64,9 +64,9 @@ namespace ViolinBTCE
         {
             string feeString = string.Format("https://btc-e.com/api/2/{0}/fee", ConvertionHelper.ToString(pair));
 
-            string jsonString = _webApi.RequestHttpInformation(feeString);
+            string jsonString = WebApi.RequestHttpInformation(feeString);
 
-            decimal fee = _webApi.DeserializeURLInfo<decimal>(jsonString, "trade");
+            decimal fee = WebApi.Deserialize<decimal>(jsonString, "trade");
 
             return fee;
         }
@@ -94,8 +94,8 @@ namespace ViolinBTCE
 
         private T PerformOperation<T>(Dictionary<string, string> operations)
         {
-            var jsonString = _webApi.GetJsonStringFromQuery(operations);
-            var deserializedObject = _webApi.Deserialize<T>(jsonString);
+            var jsonString = _webApi.GetAnswerAsJsonString(operations, "https://btc-e.com/tapi");
+            var deserializedObject = WebApi.Deserialize<T>(jsonString);
 
             return deserializedObject;
         }
