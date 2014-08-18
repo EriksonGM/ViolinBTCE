@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ViolinBtce.Dto.Helpers
 {
@@ -19,6 +20,11 @@ namespace ViolinBtce.Dto.Helpers
             var enumeration = Enum.GetName(typeof(TEnum), convertableEnum);
 
             return enumeration.ToLowerInvariant();
+        }
+
+        public static string DecimalToString(decimal d)
+        {
+            return d.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

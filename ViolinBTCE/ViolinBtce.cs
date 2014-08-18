@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using ViolinBtce.Dto;
 using ViolinBtce.Dto.Enums;
-using ViolinBtce.Dto.Helpers;
 using ViolinBtce.Shared;
 
 namespace ViolinBTCE
@@ -13,83 +10,61 @@ namespace ViolinBTCE
         readonly WebApi _webApi;
         private DtoUserInfo _userInfo;
 
-        public ViolinBtce(string apiKey, string apiSecret)
+        public ViolinBtce(string apiKey, string apiSecret, bool getInfoOnInstantiation )
         {
             _webApi = new WebApi(apiKey,apiSecret);
+
+            if (getInfoOnInstantiation)
+                GetInfo();
         }
 
         public DtoUserInfo GetInfo()
         {
-            var getInfo = new Dictionary<string, string>
-            {
-                {"method", "getInfo"}
-            };
-            _userInfo = PerformOperation<DtoUserInfo>(getInfo);
+            var getInfoOperation = Operations.GetInfo();
+            _userInfo = PerformOperation<DtoUserInfo>(getInfoOperation);
+            
             return _userInfo;
         }
-
+        
         public decimal GetBalance(Currency currency)
         {
-            switch (currency)
-            {
-                // Most used pairs
-                case Currency.btc: return _userInfo.Funds.Btc;
-                case Currency.ltc: return _userInfo.Funds.Ltc;
-                case Currency.nvc: return _userInfo.Funds.Nmc;
-                case Currency.eur: return _userInfo.Funds.Eur;
-                case Currency.usd: return _userInfo.Funds.Usd;
-                // Exotic pairs
-                case Currency.rur: return _userInfo.Funds.Rur;
-                case Currency.nmc: return _userInfo.Funds.Nmc;
-                case Currency.trc: return _userInfo.Funds.Trc;
-                case Currency.ppc: return _userInfo.Funds.Ppc;
-                case Currency.ftc: return _userInfo.Funds.Ftc;
+            _userInfo = GetInfo();
 
-                default: throw new ApplicationException("GetBalance(" + currency + ") could not be processed.");
-            }
+            var balance = Operations.GetBalance(_userInfo, currency);
+
+            return balance;
+        }
+
+        public DtoTradeAnswer Trade(Pair pair, TradeType type, decimal rate, decimal amount)
+        {
+            var tradeOperation = Operations.Trade(pair, type, rate, amount);
+            DtoTradeAnswer tradeAnswer = PerformOperation<DtoTradeAnswer>(tradeOperation);
+
+            return tradeAnswer;
         }
 
         public DtoTicker GetTicker(Pair pair)
         {
-            string tickerString = string.Format("https://btc-e.com/api/2/{0}/ticker", ConvertionHelper.ToString(pair));
-            
-            string jsonString = WebApi.RequestHttpInformation(tickerString );
+            var getTickerOperation = Operations.GetTicker(pair);
+            DtoTicker ticker = PerformOperation<DtoTicker>(getTickerOperation);
 
-            DtoTicker ticker = WebApi.Deserialize<DtoTicker>(jsonString);
-            
             return ticker;
         }
 
         public decimal GetFee(Pair pair)
         {
-            string feeString = string.Format("https://btc-e.com/api/2/{0}/fee", ConvertionHelper.ToString(pair));
-
-            string jsonString = WebApi.RequestHttpInformation(feeString);
-
-            decimal fee = WebApi.Deserialize<decimal>(jsonString, "trade");
+            var getFeeOperation = Operations.GetFee(pair);
+            decimal fee = PerformOperation<decimal>(getFeeOperation, "trade");
 
             return fee;
         }
 
-        public DtoTradeAnswer Trade(Pair pair, TradeType type, decimal rate, decimal amount)
+        public T PerformOperation<T>(string url, string specialName = null)
         {
-            var trade = new Dictionary<string, string>()
-            {
-                { "method", "Trade" },
-                { "pair",   ConvertionHelper.ToString(pair) },
-                { "type",   ConvertionHelper.ToString(type) },
-                { "rate",   DecimalToString(rate) },
-                { "amount", DecimalToString(amount) }
-            };
+            var answerString = WebApi.RequestHttpInformation(url);
+            T deserializedObject = WebApi.Deserialize<T>(answerString, specialName);
 
-            var tradeAnswer = PerformOperation<DtoTradeAnswer>(trade);
-
-            return tradeAnswer;
-        }
-        
-        private static string DecimalToString(decimal d)
-        {
-            return d.ToString(CultureInfo.InvariantCulture);
+            return deserializedObject;
         }
 
         private T PerformOperation<T>(Dictionary<string, string> operations)
