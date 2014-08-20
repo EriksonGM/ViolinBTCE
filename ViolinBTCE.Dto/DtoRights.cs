@@ -24,5 +24,15 @@ namespace ViolinBtce.Dto
         {
             return 17 + 31 * Info.GetHashCode() + 31 * Trade.GetHashCode() + 31 * Withdraw.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return String.Format("Info: {0}\n" +
+                                 "Trade: {1}\n" +
+                                 "Withdraw {2}",
+                                 Info ? "Allowed" : "Not Allowed",
+                                 Trade ? "Allowed" : "Not Allowed",
+                                 Withdraw ? "Allowed" : "Not Allowed");
+        }
 	}
 }

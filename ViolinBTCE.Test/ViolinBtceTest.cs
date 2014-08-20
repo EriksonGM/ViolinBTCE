@@ -98,7 +98,7 @@ namespace ViolinBTCE.Test
             DtoTradeAnswer result = violinBtce.Trade(Pair.ltc_usd, TradeType.sell, 100m, 0.1m);
 
             // Assert
-            Assert.Greater(result.Order_Id, 0);
+            Assert.Greater(result.OrderId, 0);
         }
         #endregion
 

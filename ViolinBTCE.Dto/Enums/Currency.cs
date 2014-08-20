@@ -13,7 +13,10 @@
 		ftc,
 		usd,
 		rur,
-		eur
+		eur,
+        xpm,
+        cnh,
+        gbp
 	}
     // ReSharper restore InconsistentNaming
 }

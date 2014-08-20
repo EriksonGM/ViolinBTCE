@@ -120,7 +120,7 @@ namespace ViolinBtce.Shared
             DtoTradeAnswer dtoTradeAnswer = new DtoTradeAnswer
             {
                 Funds = dtoFunds,
-                Order_Id = 123456,
+                OrderId = 123456,
                 Received = 10,
                 Remains = 10
             };
