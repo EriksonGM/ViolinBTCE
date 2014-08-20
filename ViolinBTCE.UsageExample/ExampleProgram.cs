@@ -9,8 +9,8 @@ namespace ViolinBTCE.UsageExample
         public static void Main(string[] args)
         {
             // This account is changed every time I build on the CI server. After that, it is never used again. =)
-            const string validKey       = "GKM3NTU5-2DLZM7DA-TEJE1TY5-VHZO6MN5-AKXDQ5EI";
-            const string validSecret    = "8fe6e0f1b5f303c3f8a3465554b1c765116f0e619e611819e2fb97c6f1a5a1c4";
+            const string validKey       = "TFTBKQNA-FQBLPADB-GZ4HTEIB-CBY5289P-AHAZODTB";
+            const string validSecret    = "e7f5a9b405d08eabc770082e5ab4f58c0d625e630438161645cfd4d1acd3bc6f";
 
             ViolinBtce violinBtce = new ViolinBtce();
             violinBtce.SetKeyAndSecret(validKey, validSecret);
