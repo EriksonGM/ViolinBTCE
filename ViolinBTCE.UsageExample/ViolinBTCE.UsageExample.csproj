@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C602B460-CC32-44F0-A24E-AF6B16DDCBE7}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C1DC553A-EB28-4F65-952D-D98CDFCCBC5E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ViolinBTCE.Dto</RootNamespace>
-    <AssemblyName>ViolinBTCE.Dto</AssemblyName>
+    <RootNamespace>ViolinBTCE.UsageExample</RootNamespace>
+    <AssemblyName>ViolinBTCE.UsageExample</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,41 +32,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\Currency.cs" />
-    <Compile Include="Enums\Pair.cs" />
-    <Compile Include="DtoCancelOrderAnswer.cs" />
-    <Compile Include="DtoDepth.cs" />
-    <Compile Include="DtoFunds.cs" />
-    <Compile Include="DtoOrder.cs" />
-    <Compile Include="DtoOrderInfo.cs" />
-    <Compile Include="DtoActiveOrders.cs" />
-    <Compile Include="Helpers\ConvertionHelper.cs" />
-    <Compile Include="Helpers\UnixTimeHelper.cs" />
+    <Compile Include="ExampleProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DtoRights.cs" />
-    <Compile Include="DtoTicker.cs" />
-    <Compile Include="DtoTrade.cs" />
-    <Compile Include="DtoTradeAnswer.cs" />
-    <Compile Include="DtoTradeHistory.cs" />
-    <Compile Include="DtoTradeInfo.cs" />
-    <Compile Include="Enums\TradeInfoType.cs" />
-    <Compile Include="Enums\TradeType.cs" />
-    <Compile Include="DtoTransaction.cs" />
-    <Compile Include="DtoTransHistory.cs" />
-    <Compile Include="DtoUserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ViolinBTCE.Dto\ViolinBTCE.Dto.csproj">
+      <Project>{C602B460-CC32-44F0-A24E-AF6B16DDCBE7}</Project>
+      <Name>ViolinBTCE.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViolinBTCE\ViolinBTCE.csproj">
+      <Project>{329F9AEC-1562-4E9E-93D2-614CBA42EB6E}</Project>
+      <Name>ViolinBTCE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

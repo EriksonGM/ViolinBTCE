@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.Shared.Test", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.Test", "ViolinBTCE.Test\ViolinBTCE.Test.csproj", "{4A47F6A9-8145-4E6A-BF38-E086A79D5C0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolinBTCE.UsageExample", "ViolinBTCE.UsageExample\ViolinBTCE.UsageExample.csproj", "{C1DC553A-EB28-4F65-952D-D98CDFCCBC5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{4A47F6A9-8145-4E6A-BF38-E086A79D5C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A47F6A9-8145-4E6A-BF38-E086A79D5C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A47F6A9-8145-4E6A-BF38-E086A79D5C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DC553A-EB28-4F65-952D-D98CDFCCBC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DC553A-EB28-4F65-952D-D98CDFCCBC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DC553A-EB28-4F65-952D-D98CDFCCBC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DC553A-EB28-4F65-952D-D98CDFCCBC5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
