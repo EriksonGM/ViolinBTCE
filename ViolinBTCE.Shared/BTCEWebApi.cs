@@ -10,13 +10,14 @@ using ViolinBtce.Dto.Helpers;
 
 namespace ViolinBtce.Shared
 {
-    public class WebApi
+// ReSharper disable once InconsistentNaming
+    public class BTCEWebApi
     {
         private readonly string _key;
         private readonly HMACSHA512 _hashMaker;
         private static UInt32 _nonce;
 
-        public WebApi(string key, string secret)
+        public BTCEWebApi(string key, string secret)
         {
             if(string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("key","The key must be passed in the constructor of a new instance of WebApi.");
@@ -29,7 +30,7 @@ namespace ViolinBtce.Shared
         }
 
         #region Query
-        public static string Query(string url)
+        public string Query(string url)
         {
             if (!ValidateURL(url)) throw new WebException("Non HTTP WebRequest");
             
@@ -53,7 +54,7 @@ namespace ViolinBtce.Shared
         }
 
         #region Private methods
-            private static WebRequest CreateWebRequest(string url)
+            private WebRequest CreateWebRequest(string url)
             {
                 var request = WebRequest.Create(url);
                 request.Proxy = WebRequest.DefaultWebProxy;
@@ -61,7 +62,7 @@ namespace ViolinBtce.Shared
                 return request;
             }
 
-            private static bool ValidateURL(string url)
+            private bool ValidateURL(string url)
             {
                 Uri uriResult;
                 bool b = Uri.TryCreate(url, UriKind.Absolute, out uriResult) && uriResult.Scheme == Uri.UriSchemeHttp;
@@ -114,12 +115,12 @@ namespace ViolinBtce.Shared
                     throw new HttpException("Non HTTP WebRequest");
 
                 request.Method = "POST";
-                request.Timeout = 15000;
+                request.Timeout = 10000;
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
 
                 request.Headers.Add("Key", _key);
-                request.Headers.Add("Sign", ByteArrayToString(_hashMaker.ComputeHash(data)).ToLower());
+                request.Headers.Add("Sign", ConvertionHelper.ByteArrayToString(_hashMaker.ComputeHash(data)).ToLower());
                 return request;
             }
 
@@ -129,17 +130,28 @@ namespace ViolinBtce.Shared
                 reqStream.Write(data, 0, data.Length);
                 reqStream.Close();
             }
+        
+            private static UInt32 GetNonce()
+            {
+                return _nonce++;
+            }
             #endregion
         #endregion
 
-        public static string RequestHttpInformation(string url)
+        public string RequestHttpInformation(string url)
         {
-            var webRequest = CreateWebRequest(url);
-
-            return GetResponse(webRequest);
+            try
+            {
+                var webRequest = CreateWebRequest(url);
+                return GetResponse(webRequest);
+            }
+            catch (Exception)
+            {
+                throw new OperationCanceledException();
+            }
         }
 
-        public static T Deserialize<T>(string jsonString, string specialName = null)
+        public T Deserialize<T>(string jsonString, string specialName = null)
         {
             var jObject = JObject.Parse(jsonString);
 
@@ -157,17 +169,6 @@ namespace ViolinBtce.Shared
                 deserializedObject = (T)jObject[specialName].ToObject(typeof(T));
 
             return deserializedObject;
-        }
-
-        private static UInt32 GetNonce()
-        {
-            return _nonce++;
-        }
-
-
-        private static string ByteArrayToString(byte[] ba)
-        {
-            return BitConverter.ToString(ba).Replace("-", "");
         }
     }
 }

@@ -9,8 +9,11 @@ using ViolinBtce.Dto;
 namespace ViolinBtce.Shared.Test
 {
     [TestFixture]
-    public class WebApiTest
+// ReSharper disable once InconsistentNaming
+    public class BTCEWebApiTest
     {
+        readonly BTCEWebApi _btceWebApi = new BTCEWebApi("key","secret");
+
         [TestCase(true, true)]
         [TestCase(true, false, ExpectedException = typeof(WebException))]
         [TestCase(false, false, ExpectedException = typeof(WebException))]
@@ -28,7 +31,7 @@ namespace ViolinBtce.Shared.Test
                 urlString = "http:dasasre2";
 
             // Act
-            var queryResult = WebApi.Query(urlString);
+            var queryResult = _btceWebApi.Query(urlString);
             
             // Assert
             if(urlIsValid)
@@ -38,6 +41,7 @@ namespace ViolinBtce.Shared.Test
 
 
         [TestCase("key", "secret", "https://btc-e.com/tapi")]
+        // This case only passes if your internet provider does not redirect not found pages to their own "error 404" page
         [TestCase("key", "secret", "http://www.invalid.test",   ExpectedException = typeof(WebException))]
 
         [TestCase(null,  null,      "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
@@ -57,7 +61,7 @@ namespace ViolinBtce.Shared.Test
             };
             
             // Act
-            var webApi = new WebApi(key, secret);
+            var webApi = new BTCEWebApi(key, secret);
             string jsonString = webApi.GetAnswerAsJsonString(operations, apiUri);
 
             // Assert
@@ -87,9 +91,7 @@ namespace ViolinBtce.Shared.Test
             string jsonString = "{ \"success\": " + successValue + ", " + message + " }";
 
             // Act
-            var webApi = new WebApi("key", "secret");
-
-            DtoFunds resultDto = WebApi.Deserialize<DtoFunds>(jsonString);
+            DtoFunds resultDto = _btceWebApi.Deserialize<DtoFunds>(jsonString);
 
             // Assert
             Assert.AreEqual(dummyDtoFunds,resultDto);
@@ -102,7 +104,7 @@ namespace ViolinBtce.Shared.Test
             const string jsonString = "{\"trade\":0.2}";
 
             // Act
-            decimal result = WebApi.Deserialize<decimal>(jsonString,"trade");
+            decimal result = _btceWebApi.Deserialize<decimal>(jsonString,"trade");
 
             // Assert
             Assert.AreEqual(0.2m , result);

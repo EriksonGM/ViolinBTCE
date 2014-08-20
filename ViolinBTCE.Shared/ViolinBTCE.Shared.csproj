@@ -42,7 +42,7 @@
     <Compile Include="JObjectParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="WebApi.cs" />
+    <Compile Include="BTCEWebApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ViolinBTCE.Dto\ViolinBTCE.Dto.csproj">

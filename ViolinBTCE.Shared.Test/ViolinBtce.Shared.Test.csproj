@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="JObjectParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebApiTest.cs" />
+    <Compile Include="BTCEWebApiTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ViolinBTCE.Dto\ViolinBTCE.Dto.csproj">

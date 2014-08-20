@@ -55,6 +55,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ViolinBTCE.Dto\ViolinBTCE.Dto.csproj">
+      <Project>{C602B460-CC32-44F0-A24E-AF6B16DDCBE7}</Project>
+      <Name>ViolinBTCE.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViolinBTCE\ViolinBTCE.csproj">
+      <Project>{329F9AEC-1562-4E9E-93D2-614CBA42EB6E}</Project>
+      <Name>ViolinBTCE</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

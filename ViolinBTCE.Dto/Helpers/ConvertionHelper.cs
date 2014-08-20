@@ -26,5 +26,10 @@ namespace ViolinBtce.Dto.Helpers
         {
             return d.ToString(CultureInfo.InvariantCulture);
         }
+
+        public static string ByteArrayToString(byte[] ba)
+        {
+            return BitConverter.ToString(ba).Replace("-", "");
+        }
     }
 }

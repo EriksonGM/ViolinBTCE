@@ -24,7 +24,7 @@ namespace ViolinBtce.Shared
 
         private static Dictionary<Type, object> GetDummiesDictionary()
         {
-            #region DtoFunds
+            #region Funds
             DtoFunds dtoFunds = new DtoFunds { Btc = 1.0m, Eur = 1.0m, Ftc = 1.0m, Ltc = 1.0m, Nmc = 1.0m, Nvc = 1.0m, Ppc = 1.0m, Rur = 1.0m, Trc = 1.0m, Usd = 1.0m };
             #endregion
 
@@ -119,8 +119,8 @@ namespace ViolinBtce.Shared
             #region DtoTradeAnswer
             DtoTradeAnswer dtoTradeAnswer = new DtoTradeAnswer
             {
-                DtoFunds = dtoFunds,
-                OrderId = 123456,
+                Funds = dtoFunds,
+                Order_Id = 123456,
                 Received = 10,
                 Remains = 10
             };

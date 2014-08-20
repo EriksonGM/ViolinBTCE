@@ -6,7 +6,7 @@ namespace ViolinBtce.Dto {
 	public class DtoTradeAnswer {
 		public decimal Received { get; set; }
 		public decimal Remains { get; set; }
-		public int OrderId { get; set; }
-		public DtoFunds DtoFunds { get; set; }
+		public int Order_Id { get; set; }
+		public DtoFunds Funds { get; set; }
 	}
 }
