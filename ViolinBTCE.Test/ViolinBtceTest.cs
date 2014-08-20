@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using ViolinBtce.Dto;
 using ViolinBtce.Dto.Enums;
@@ -14,6 +15,14 @@ namespace ViolinBTCE.Test
         private const string ValidSecret = "40903af94d97674a327dff12397e7115f3608102a75d3ec88f768a34a21b4793";
         private const double YourUsdBalance = 4.20811865;
         private const double YourNvcBalance = 0;
+
+        [TearDown]
+        public void TearDown()
+        {
+            // This must be ensured because each operation can only use one nonce a nonce can only be generated every one second 
+            // due to its UnixTime nature.
+            Thread.Sleep(1000);
+        }
 
         #region SetKeyAndSecret
         [Test]

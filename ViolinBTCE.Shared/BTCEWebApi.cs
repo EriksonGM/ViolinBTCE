@@ -15,7 +15,17 @@ namespace ViolinBtce.Shared
     {
         private readonly string _key;
         private readonly HMACSHA512 _hashMaker;
-        private static UInt32 _nonce;
+
+        private UInt32 _nonce;
+
+        private UInt32 Nonce
+        {
+            get
+            {
+                _nonce += 1;
+                return _nonce;
+            }
+        }
 
         public BTCEWebApi(string key, string secret)
         {
@@ -32,7 +42,7 @@ namespace ViolinBtce.Shared
         #region Query
         public string Query(string url)
         {
-            if (!ValidateURL(url)) throw new WebException("Non HTTP WebRequest");
+            if (!ValidateURL(url)) throw new OperationCanceledException("Non HTTP WebRequest");
             
             var httpInformation = RequestHttpInformation(url);
             
@@ -75,9 +85,9 @@ namespace ViolinBtce.Shared
         public string GetAnswerAsJsonString(Dictionary<string, string> operations, string apiUri)
         {
             if (string.IsNullOrEmpty(apiUri))
-                throw new HttpException("Uri is empty");
+                throw new OperationCanceledException("Uri is empty");
 
-            operations.Add("nonce", GetNonce().ToString());
+            operations.Add("nonce", Nonce.ToString());
 
             var dataStr = BuildPostData(operations);
             var data = Encoding.ASCII.GetBytes(dataStr);
@@ -129,11 +139,6 @@ namespace ViolinBtce.Shared
                 var reqStream = request.GetRequestStream();
                 reqStream.Write(data, 0, data.Length);
                 reqStream.Close();
-            }
-        
-            private static UInt32 GetNonce()
-            {
-                return _nonce++;
             }
             #endregion
         #endregion

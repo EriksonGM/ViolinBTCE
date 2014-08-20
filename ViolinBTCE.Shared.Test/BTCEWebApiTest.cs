@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Web;
+using System.Threading;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using ViolinBtce.Dto;
@@ -15,8 +15,8 @@ namespace ViolinBtce.Shared.Test
         readonly BTCEWebApi _btceWebApi = new BTCEWebApi("key","secret");
 
         [TestCase(true, true)]
-        [TestCase(true, false, ExpectedException = typeof(WebException))]
-        [TestCase(false, false, ExpectedException = typeof(WebException))]
+        [TestCase(true, false, ExpectedException = typeof(OperationCanceledException))]
+        [TestCase(false, false, ExpectedException = typeof(OperationCanceledException))]
         public void Query(bool urlIsValid, bool urlExists)
         {
             // Pre-requirements
@@ -49,8 +49,8 @@ namespace ViolinBtce.Shared.Test
         [TestCase("key", null,      "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
         [TestCase(null,  "secret",  "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
 
-        [TestCase("key", "secret",  null,                       ExpectedException = typeof(HttpException))]
-        [TestCase("key", "secret",  "",                         ExpectedException = typeof(HttpException))]
+        [TestCase("key", "secret",  null,                       ExpectedException = typeof(OperationCanceledException))]
+        [TestCase("key", "secret",  "",                         ExpectedException = typeof(OperationCanceledException))]
         [TestCase("key", "secret",  "invalidUriName",           ExpectedException = typeof(UriFormatException))]
         public void GetAnswerAsJsonString(string key, string secret, string apiUri)
         {
@@ -69,6 +69,10 @@ namespace ViolinBtce.Shared.Test
                 Assert.IsFalse(jsonString.Contains("success"));
             else
                 Assert.IsTrue(jsonString.Contains("success"));
+
+            // This must be ensured because each operation can only use one nonce a nonce can only be generated every one second 
+            // due to its UnixTime nature.
+            Thread.Sleep(1000);
         }
 
         [TestCase(true)]
