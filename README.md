@@ -1,6 +1,7 @@
 ViolinBTCE
 ==========
-<p align="right"><img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/></p>
+<p align="right">
+<a href="http://www.appveyor.com/"><img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/></a></p>
 ## Synopsis
 
 This project aims to offer an API which is easy to use and ensure behavior by testing all of the code. 
@@ -9,7 +10,21 @@ This project is a fork of https://github.com/DmT021/BtceApi . It has been cleane
 
 ## Code Example
 
-I am writing unit tests for the top level operations and the the API is still not usable. I'll be adding the sintaxes of use asap.
+``` c#
+ViolinBtce violinBtce = new ViolinBtce("key","secret");
+
+  DtoUserInfo info = violinBtce.GetInfo();
+
+  decimal balance = violinBtce.GetBalance(Currency.usd);
+
+  decimal fee = violinBtce.GetFee(Pair.eur_usd);
+
+  DtoTicker ticker = violinBtce.GetTicker(Pair.eur_usd);
+
+  DtoTradeAnswer tradeAnswer = violinBtce.Trade(Pair.ltc_eur, TradeType.sell, 100m, 0.1m);
+```
+
+*More Operations will be added asap.
 
 ## Motivation
 
@@ -25,13 +40,13 @@ I'll create an API Reference page as soon as it's finished and tested.
 
 ## Tests
 
-Tests status (CI on AppVeyor): <img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/>
+Tests status: <a href="http://www.appveyor.com/"><img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/></a>
 
 To run the tests, you can use NUnit GUI, for example. I use resharper to run it and dotcover to detect what is being covered or not.
 
 ## Contributors
 
-Th3B0Y (me). If you want to contribute, post your code changes and send a pull request. It will be analysed and published, if approved. Your name/nickname will be shown here.
+Th3B0Y (me). If you want to contribute, open an issue and/or send a pull request. It will be analysed and published, if approved. Your name/nickname will be shown here.
 
 ## License
 
