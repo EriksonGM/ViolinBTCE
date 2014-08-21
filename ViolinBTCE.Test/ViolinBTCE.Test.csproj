@@ -49,6 +49,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="OperationsTest.cs" />
     <Compile Include="ViolinBtceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,7 +67,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ViolinBtce_TestsCoverage_2014_08_21.png" />
+    <Content Include="ViolinBtce_TestsCoverage.png" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -6,7 +6,7 @@ using ViolinBtce.Dto.Helpers;
 
 namespace ViolinBTCE
 {
-    internal class Operations
+    public class Operations
     {
         protected internal static Dictionary<string, string> GetInfo()
         {
@@ -16,7 +16,7 @@ namespace ViolinBTCE
             };
         }
 
-        protected internal static decimal GetBalance(DtoUserInfo userInfo, Currency currency)
+        public static decimal GetBalance(DtoUserInfo userInfo, Currency currency)
         {
             switch (currency)
             {
@@ -26,13 +26,17 @@ namespace ViolinBTCE
                 case Currency.nvc: return userInfo.Funds.Nmc;
                 case Currency.eur: return userInfo.Funds.Eur;
                 case Currency.usd: return userInfo.Funds.Usd;
+                case Currency.gbp: return userInfo.Funds.Gbp;
+                case Currency.cnh: return userInfo.Funds.Cnh;
+
                 // Exotic pairs
                 case Currency.rur: return userInfo.Funds.Rur;
                 case Currency.nmc: return userInfo.Funds.Nmc;
                 case Currency.trc: return userInfo.Funds.Trc;
                 case Currency.ppc: return userInfo.Funds.Ppc;
                 case Currency.ftc: return userInfo.Funds.Ftc;
-
+                case Currency.xpm: return userInfo.Funds.Xpm;
+                
                 default: throw new ApplicationException("GetBalance(" + currency + ") could not be processed.");
             }
         }

@@ -11,8 +11,8 @@ namespace ViolinBTCE.Test
     [TestFixture]
     public class ViolinBtceTest
     {
-        const string ValidKey = "TFTBKQNA-FQBLPADB-GZ4HTEIB-CBY5289P-AHAZODTB";
-        const string ValidSecret = "e7f5a9b405d08eabc770082e5ab4f58c0d625e630438161645cfd4d1acd3bc6f";
+        const string ValidKey = "LZ9TAULM-ESM6T71J-T9NP3VXP-9B5TGPS2-9R6ECMD9";
+        const string ValidSecret = "32a51dd4b9105916cb4da017640963c102c15c2f77dde9ec6b945ce8f1d5a2f0";
         private const double YourUsdBalance = 4.20811865;
         private const double YourNvcBalance = 0;
 
