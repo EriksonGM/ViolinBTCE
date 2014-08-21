@@ -43,7 +43,7 @@ I'll create an API Reference page as soon as it's finished and tested.
 Tests status: <a href="http://www.appveyor.com/"><img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/></a>
 
 Tests coverage 21st of August, 2014:
-![alt tag](https://raw.githubusercontent.com/brunoamancio/ViolinBTCE/master/ViolinBTCE.Test/ViolinBtce_TestsCoverage_2014_08_21.png)
+![Tests coverage](https://raw.githubusercontent.com/brunoamancio/ViolinBTCE/master/ViolinBTCE.Test/ViolinBtce_TestsCoverage.png)
 
 To run the tests, you can use NUnit GUI, for example. I use resharper to run it and dotcover to detect what is being covered or not.
 
