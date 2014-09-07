@@ -58,7 +58,7 @@ namespace ViolinBtce.Shared
             #region DtoCancelOrderAnswer
             DtoCancelOrderAnswer dtoCancelOrderAnswer = new DtoCancelOrderAnswer
             {
-                DtoFunds = dtoFunds,
+                Funds = dtoFunds,
                 OrderId = 100
             };
             #endregion

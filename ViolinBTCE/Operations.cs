@@ -43,12 +43,12 @@ namespace ViolinBTCE
 
         protected internal static string GetTicker(Pair pair)
         {
-            return String.Format("https://btc-e.com/api/2/{0}/ticker", ConvertionHelper.ToString(pair));
+            return String.Format("https://btc-e.com/api/2/{0}/ticker", ConvertionHelper.EnumToString(pair));
         }
 
         protected internal static string GetFee(Pair pair)
         {
-            return string.Format("https://btc-e.com/api/2/{0}/fee", ConvertionHelper.ToString(pair));
+            return string.Format("https://btc-e.com/api/2/{0}/fee", ConvertionHelper.EnumToString(pair));
         }
 
         protected internal static Dictionary<string, string> Trade(Pair pair, TradeType type, decimal rate, decimal amount)
@@ -56,13 +56,28 @@ namespace ViolinBTCE
             return new Dictionary<string, string>()
             {
                 { "method", "Trade" },
-                { "pair",   ConvertionHelper.ToString(pair) },
-                { "type",   ConvertionHelper.ToString(type) },
+                { "pair",   ConvertionHelper.EnumToString(pair) },
+                { "type",   ConvertionHelper.EnumToString(type) },
                 { "rate",   ConvertionHelper.DecimalToString(rate) },
                 { "amount", ConvertionHelper.DecimalToString(amount) }
             };
         }
 
+        protected internal static Dictionary<string, string> GetOrderList()
+        {
+            return new Dictionary<string, string>
+            {
+                { "method", "ActiveOrders" }
+            };
+        }
 
+        protected internal static Dictionary<string, string> CancelOrder(int orderId)
+        {
+            return new Dictionary<string, string>
+            {
+                { "method", "CancelOrder" },
+                { "order_id", orderId.ToString() }
+            };
+        }
     }
 }

@@ -102,6 +102,31 @@ namespace ViolinBTCE
             return tradeAnswer;
         }
 
+        public DtoCancelOrderAnswer CancelOrder(int orderId)
+        {
+            if (!LoggedOnOperationsAreAllowed)
+                throw new NullUserInfoException();
+
+            var cancelOrderOperation = Operations.CancelOrder(orderId);
+            
+            DtoCancelOrderAnswer cancelOrderAnswer = PerformOperation<DtoCancelOrderAnswer>(cancelOrderOperation);
+
+            return cancelOrderAnswer;
+        }
+
+        public DtoActiveOrders GetOrderList()
+        {
+            var getOrderListOperation = Operations.GetOrderList();
+
+            var dtoActiveOrders = new DtoActiveOrders
+            {
+                List = PerformOperation<Dictionary<int, DtoOrder>>(getOrderListOperation)
+            };
+            
+            return dtoActiveOrders;
+        }
+
+        
         /// <summary>
         /// Gets a DtoTicker object containing information about the current market prices of the given pair
         /// </summary>

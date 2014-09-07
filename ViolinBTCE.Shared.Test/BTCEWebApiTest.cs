@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
+using System.Linq;
 using System.Threading;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -42,7 +42,7 @@ namespace ViolinBtce.Shared.Test
 
         [TestCase("key", "secret", "https://btc-e.com/tapi")]
         // This case only passes if your internet provider does not redirect not found pages to their own "error 404" page
-        [TestCase("key", "secret", "http://www.invalid.test",   ExpectedException = typeof(WebException))]
+        //[TestCase("key", "secret", "http://www.invalid.test",   ExpectedException = typeof(WebException))]
 
         [TestCase(null,  null,      "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
         [TestCase("",    "",        "https://btc-e.com/tapi",   ExpectedException = typeof(ArgumentNullException))]
@@ -113,6 +113,21 @@ namespace ViolinBtce.Shared.Test
             // Assert
             Assert.AreEqual(0.2m , result);
         }
-        
+
+
+        [Test]
+        public void Deserialize_OrderList()
+        {
+            // Arrange
+            const string jsonString = "{\"success\":1,\"return\":{\"361683776\":{\"pair\":\"ltc_eur\",\"type\":\"sell\",\"amount\":0.10000000,\"rate\":100.00000000,\"timestamp_created\":1410085980,\"status\":0}}}";
+
+            // Act
+            var list = _btceWebApi.Deserialize<Dictionary<int, DtoOrder>>(jsonString);
+            DtoActiveOrders resultDto = new DtoActiveOrders{ List = list };
+
+            // Assert
+            Assert.AreEqual(1, resultDto.List.Count);
+            Assert.AreEqual(361683776,resultDto.List.First().Key);
+        }
     }
 }

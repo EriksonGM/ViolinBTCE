@@ -9,7 +9,7 @@ namespace ViolinBtce.Dto.Test
     [TestFixture]
     public class ConvertionHelperTest
     {
-        #region ToString
+        #region EnumToString
 
             #region Currency
             [TestCase(Currency.btc)]
@@ -24,7 +24,7 @@ namespace ViolinBtce.Dto.Test
             [TestCase(Currency.usd)]
             public void ToString_ConvertionOfCurrency(Currency currencyEnum)
             {
-                string convertionResult = ConvertionHelper.ToString(currencyEnum);
+                string convertionResult = ConvertionHelper.EnumToString(currencyEnum);
 
                 Assert.AreEqual( currencyEnum.ToString(), convertionResult );
             }
@@ -46,7 +46,7 @@ namespace ViolinBtce.Dto.Test
             [TestCase(Pair.unknown)]
             public void ToString_ConvertionOfPair(Pair pairEnum)
             {
-                string convertionResult = ConvertionHelper.ToString(pairEnum);
+                string convertionResult = ConvertionHelper.EnumToString(pairEnum);
 
                 Assert.AreEqual(pairEnum.ToString(), convertionResult);
             }
@@ -57,7 +57,7 @@ namespace ViolinBtce.Dto.Test
             [TestCase(TradeInfoType.bid)]
             public void ToString_ConvertionOfTradeInfoType(TradeInfoType tradeInfoTypeEnum)
             {
-                string convertionResult = ConvertionHelper.ToString(tradeInfoTypeEnum);
+                string convertionResult = ConvertionHelper.EnumToString(tradeInfoTypeEnum);
 
                 Assert.AreEqual(tradeInfoTypeEnum.ToString(), convertionResult);
             }
@@ -68,7 +68,7 @@ namespace ViolinBtce.Dto.Test
             [TestCase(TradeType.sell)]
             public void ToString_ConvertionOfTradeType(TradeType tradeTypeEnum)
             {
-                string convertionResult = ConvertionHelper.ToString(tradeTypeEnum);
+                string convertionResult = ConvertionHelper.EnumToString(tradeTypeEnum);
 
                 Assert.AreEqual(tradeTypeEnum.ToString(), convertionResult);
             }

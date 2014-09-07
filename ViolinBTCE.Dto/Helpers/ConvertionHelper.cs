@@ -15,7 +15,7 @@ namespace ViolinBtce.Dto.Helpers
 
         }
 
-        public static string ToString<TEnum>(TEnum convertableEnum)
+        public static string EnumToString<TEnum>(TEnum convertableEnum)
         {
             var enumeration = Enum.GetName(typeof(TEnum), convertableEnum);
 
