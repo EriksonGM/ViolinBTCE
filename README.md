@@ -22,6 +22,18 @@ ViolinBtce violinBtce = new ViolinBtce("key","secret");
   DtoTicker ticker = violinBtce.GetTicker(Pair.eur_usd);
 
   DtoTradeAnswer tradeAnswer = violinBtce.Trade(Pair.ltc_eur, TradeType.sell, 100m, 0.1m);
+  
+  DtoActiveOrders orderList = violinBtce.GetOrderList();
+
+            foreach (KeyValuePair<int, DtoOrder> kvp in orderList.List)
+            {
+                Console.WriteLine("Order Id: " +  kvp.Key);
+                Console.WriteLine(kvp.Value.ToString());
+                Console.ReadLine();
+            }
+            
+  DtoCancelOrderAnswer dtoCancelOrderAnswer = violinBtce.CancelOrder(orderId);
+  
 ```
 
 *More Operations will be added asap.
@@ -43,6 +55,7 @@ I'll create an API Reference page as soon as it's finished and tested.
 Tests status: <a href="http://www.appveyor.com/"><img alt="Tests status" src="https://ci.appveyor.com/api/projects/status/u76hesrmw3rgywoy"/></a>
 
 Tests coverage 21st of August, 2014:
+This image is not updated to the last operation additions yet. We must write tests for 2 new operations.
 ![Tests coverage](https://raw.githubusercontent.com/brunoamancio/ViolinBTCE/master/ViolinBTCE.Test/ViolinBtce_TestsCoverage.png)
 
 To run the tests, you can use NUnit GUI, for example. I use resharper to run it and dotcover to detect what is being covered or not.
