@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ViolinBtce.Dto;
 using ViolinBtce.Dto.Enums;
 using ViolinBTCE.Exceptions;
 using ViolinBtce.Shared;
+using ViolinBTCE.Dto;
 
 namespace ViolinBTCE
 {
-    // TODO implement PostSharp "UserInfoRequired" attribute
     public class ViolinBtce
     {
         BTCEWebApi _btceWebApi;
@@ -126,7 +126,30 @@ namespace ViolinBTCE
             return dtoActiveOrders;
         }
 
-        
+        public DtoCreateCouponAnswer CreateCoupon(Currency currency, decimal amount)
+        {
+            if (!LoggedOnOperationsAreAllowed)
+                throw new NullUserInfoException();
+
+            var createCouponOperation = Operations.CreateCoupon(currency, amount);
+
+            DtoCreateCouponAnswer createCouponAnswer = PerformOperation<DtoCreateCouponAnswer>(createCouponOperation);
+
+            return createCouponAnswer;
+        }
+
+        public DtoRedeemCouponAnswer RedeemCoupon(string coupon)
+        {
+            if (!LoggedOnOperationsAreAllowed)
+                throw new NullUserInfoException();
+
+            var redeemCouponOperation = Operations.RedeemCoupon(coupon);
+
+            DtoRedeemCouponAnswer redeemCouponAnswer = PerformOperation<DtoRedeemCouponAnswer>(redeemCouponOperation);
+
+            return redeemCouponAnswer;
+        }
+
         /// <summary>
         /// Gets a DtoTicker object containing information about the current market prices of the given pair
         /// </summary>

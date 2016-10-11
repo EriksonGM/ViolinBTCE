@@ -38,6 +38,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoCreateCouponAnswer.cs" />
+    <Compile Include="DtoRedeemCouponAnswer.cs" />
     <Compile Include="Enums\Currency.cs" />
     <Compile Include="Enums\Pair.cs" />
     <Compile Include="DtoCancelOrderAnswer.cs" />

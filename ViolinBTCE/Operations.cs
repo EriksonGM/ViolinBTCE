@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ViolinBtce.Dto;
 using ViolinBtce.Dto.Enums;
@@ -70,6 +70,26 @@ namespace ViolinBTCE
                 { "method", "ActiveOrders" }
             };
         }
+
+        protected internal static Dictionary<string, string> CreateCoupon(Currency currency, decimal amount)
+        {
+            return new Dictionary<string, string>
+            {
+                { "method", "CreateCoupon" },
+                { "currency", ConvertionHelper.EnumToString(currency) },
+                { "amount", ConvertionHelper.DecimalToString(amount) }
+            };
+        }
+
+        protected internal static Dictionary<string, string> RedeemCoupon(string coupon)
+        {
+            return new Dictionary<string, string>
+            {
+                { "method", "RedeemCoupon" },
+                { "coupon", coupon }
+            };
+        }
+
 
         protected internal static Dictionary<string, string> CancelOrder(int orderId)
         {
