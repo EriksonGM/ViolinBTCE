@@ -13,7 +13,7 @@ namespace ViolinBTCE.Test
     {
         const string ValidKey = "26QUTRR1-65M5N33G-ZTHF275C-ZHJL3SNU-VXTYEAV8";
         const string ValidSecret = "c4ed57879f794a45b265691453915b26afdb5dad558e0e2d26afd056c85e19a0";
-        private const double YourUsdBalance = 4.20811865;
+        private const double YourUsdBalance = 0.00001883;
         private const double YourNvcBalance = 0;
 
         [TearDown]
