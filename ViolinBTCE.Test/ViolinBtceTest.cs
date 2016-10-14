@@ -84,6 +84,7 @@ namespace ViolinBTCE.Test
         #endregion
 
         #region Trade
+        [Ignore("This test requires trade rights from api key")]
         [TestCase(ValidKey,     ValidSecret,    Pair.eur_usd, true)]
         [TestCase("",           "",             Pair.eur_usd, false, ExpectedException = typeof(NullUserInfoException))]
         public void Trade(string key, string secret, Pair pair, bool keyAndSecretAreSpecified)
