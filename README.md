@@ -34,6 +34,9 @@ ViolinBtce violinBtce = new ViolinBtce("key","secret");
             
   DtoCancelOrderAnswer dtoCancelOrderAnswer = violinBtce.CancelOrder(orderId);
   
+  DtoCreateCouponAnswer dtoCreateCouponAnswer = CreateCoupon(currency, amount);
+  
+  DtoRedeemCouponAnswer dtoRedeemCouponAnswer = RedeemCoupon(coupon);
 ```
 
 *More Operations will be added asap.
