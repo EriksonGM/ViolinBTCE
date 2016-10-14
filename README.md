@@ -62,7 +62,10 @@ To run the tests, you can use NUnit GUI, for example. I use resharper to run it 
 
 ## Contributors
 
-Th3B0Y (me). If you want to contribute, open an issue and/or send a pull request. It will be analysed and published, if approved. Your name/nickname will be shown here.
+- Th3B0Y
+- noescape00
+
+If you want to contribute, open an issue and/or send a pull request. It will be analysed and published, if approved. Your name/nickname will be shown here.
 
 ## License
 
